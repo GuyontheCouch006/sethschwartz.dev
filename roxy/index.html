@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roxy · a 3D content tool by Seth Schwartz</title>
+<meta name="description" content="Roxy is a procedural 3D content tool built from scratch: node-based modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant.">
+<link rel="canonical" href="https://sethschwartz.dev/roxy/">
+<meta name="theme-color" content="#0B0D10">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Seth Schwartz">
+<meta property="og:title" content="Roxy · a 3D content tool by Seth Schwartz">
+<meta property="og:description" content="Roxy is a procedural 3D content tool built from scratch: node-based modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant.">
+<meta property="og:url" content="https://sethschwartz.dev/roxy/">
+<meta property="og:image" content="https://sethschwartz.dev/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixar's Kitchen_set rendered in Roxy">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#0B0D10}
+a{color:#E8A35A}a:hover{color:#F2C08A}
+img{max-width:100%}
+@media (max-width: 640px){.card-img{min-height:560px!important}}
+</style>
+</head>
+<body>
+<div style="background: #0B0D10; color: #E9E6E0; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; min-height: 100%">
+
+  <header style="position: absolute; top: 0; left: 0; right: 0; z-index: 2">
+    <nav aria-label="Primary" style="max-width: 1280px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="#top" style="display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: #E9E6E0">
+        <span style="font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800; font-size: 22px; letter-spacing: 0.08em">ROXY</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B4BAC2">by Seth Schwartz</span>
+      </a>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; font-size: 15px">
+        <a href="/" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">sethschwartz.dev</a>
+        <a href="#work" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Work</a>
+        <a href="#inside" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Inside the app</a>
+        <a href="#architecture" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Architecture</a>
+        <a href="#about" style="color: #0B0D10; background: #E9E6E0; text-decoration: none; padding: 10px 18px; border-radius: 999px; font-weight: 600">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="top" style="position: relative; height: 820px; overflow: hidden">
+    <img src="/img/kitchen-wide.jpg" alt="Pixar's Kitchen_set rendered in Roxy: a cluttered kitchen with a ceiling lamp, a green stove, a blue fridge and a table in the foreground" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%">
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(to bottom, rgba(11,13,16,0), rgba(11,13,16,0.82) 55%, #0B0D10)"></div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 0">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px 56px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px">
+        <div style="flex: 1 1 560px; max-width: 760px; display: flex; flex-direction: column; gap: 20px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">A 3D CONTENT TOOL, BUILT FROM SCRATCH</div>
+          <h1 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800; font-size: clamp(72px, 11vw, 168px); line-height: 0.9; letter-spacing: -0.01em">Roxy</h1>
+          <p style="margin: 0; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.5; color: #E9E6E0">Node-based procedural modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant, all driving one scene model through one command layer.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px">
+            <a href="#samples" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: #E8A35A; color: #0B0D10; font-weight: 600; text-decoration: none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              See the samples
+            </a>
+            <a href="#architecture" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid #5B616B; color: #E9E6E0; font-weight: 500; text-decoration: none">How it's built</a>
+          </div>
+        </div>
+        <p style="flex: 0 1 340px; margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.65; color: #B4BAC2">Pixar’s Kitchen_set, imported from OpenUSD and rendered with Roxy’s path tracer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="samples" aria-labelledby="samples-heading" style="max-width: 1280px; margin: 0 auto; padding: 112px 24px 0; display: flex; flex-direction: column; gap: 96px">
+    <div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+      <h2 id="samples-heading" style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Samples</h2>
+      <p style="margin: 0; color: #C9CDD3">A scene the Assistant built, a production USD asset, and a procedural model, each recorded or rendered in the app.</p>
+    </div>
+    <div id="demo" style="display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">CORNELL BOX</div>
+          <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">The Assistant builds it, the path tracer renders it</h3>
+        </div>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B4BAC2">about 5 minutes, shown about 13× faster</span>
+      </div>
+      <img src="/img/cornell-assistant-timelapse.webp" alt="A sped-up recording of Roxy: the Assistant panel works through a prompt while a Cornell box appears in the viewport, then the Render View fills in the final image" loading="lazy" style="display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid #262A31">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px">
+        <img src="/img/cornell-box.jpg" alt="A Cornell box: a white room with a red left wall and a green right wall, two white blocks and a square ceiling light" loading="lazy" style="flex: 1 1 360px; max-width: 520px; min-width: 0; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left top; border-radius: 14px">
+        <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+          <p style="margin: 0; color: #C9CDD3">One paragraph of prompt in, a lit and rendered scene out. Every step the Assistant takes is a logged tool call through the same command layer a script uses, and the whole turn undoes as one entry.</p>
+          <p style="margin: 0; color: #C9CDD3">The final frame: 1024 × 1024, 256 samples, denoised. The red and green bleeding onto the white blocks is light that bounced, not painted.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 40px 56px">
+      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">OPENUSD</div>
+        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">Pixar's Kitchen_set, imported and rendered</h3>
+        <p style="margin: 0; color: #C9CDD3">The stage is converted into Roxy's own scene model, hierarchy and all, then the camera moves into the kitchen and the path tracer renders two views of the interior. Sped up, ending on the finished renders.</p>
+      </div>
+      <img src="/img/kitchen-usd-timelapse.webp" alt="A sped-up recording of Roxy importing Pixar's Kitchen_set from OpenUSD, gliding into the kitchen and rendering two views of the interior" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; height: auto; border-radius: 14px">
+    </div>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px">
+      <img src="/img/escalator-spiral.jpg" alt="The procedural escalator on a circular path, winding up as a spiral" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 14px">
+      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">PROCEDURAL ESCALATOR</div>
+        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">One asset, any path</h3>
+        <p style="margin: 0; color: #C9CDD3">The same escalator becomes a flat walkway, a straight escalator, an S-curve or a spiral, depending only on the path it follows. Steps, wedges, balustrades, handrails and landings all rebuild from that path and seven controls.</p>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 40px 56px">
+      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">THE ESCALATOR’S GRAPH</div>
+        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">215 nodes in seven labelled frames</h3>
+        <p style="margin: 0; color: #C9CDD3">The path is resampled into frames and anchored, one step is modelled, and eleven wedge variants are packed onto the frames. A lighter display branch feeds the viewport and a full-detail branch feeds the render.</p>
+      </div>
+      <img src="/img/graph-escalator-steps.jpg" alt="A close-up of the escalator's node graph: the path and anchor frame, then the step prototype and its eleven wedge variants" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 14px">
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 32px 24px; margin-top: -40px">
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/escalator-walkway.jpg" alt="The asset as a flat moving walkway" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">No rise: the same asset as a flat moving walkway.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/escalator-straight.jpg" alt="The same asset as a straight escalator between two floors" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">A straight path with a 450 cm rise.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/escalator-s-curve-plan.jpg" alt="The escalator following an S-shaped path, seen from above" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">An S-curve path, seen from above.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/escalator-spiral-wedges.jpg" alt="Wedge-shaped steps on the spiral escalator: grooved treads with yellow safety edges, brushed steel and a glass balustrade" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">Wedge steps on the spiral: grooved treads, brushed steel and glass.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/window-spiral.jpg" alt="Roxy's window with the escalator on a circular path, winding into a spiral" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">The spiral in Roxy’s window, with its graph and controls.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+        <img src="/img/details-panel.jpg" alt="The Details panel showing the escalator's controls: rise, angle, step width, flat steps, anchor, step travel and detail" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
+        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">The seven controls the graph exposes, in the Details panel.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="work" style="max-width: 1280px; margin: 0 auto; padding: 128px 24px 0; display: flex; flex-direction: column; gap: 48px">
+    <div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">WHAT IT DOES</div>
+      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">One tool, from first primitive to final frame</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 1px; background: #262A31; border: 1px solid #262A31; border-radius: 14px; overflow: hidden">
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">01 · PROCEDURAL MODELING</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Every shape owns a node graph</h3>
+        <p style="margin: 0; color: #C9CDD3">Extrude, inset, bevel, array, heightfield terrain with erosion, and a VEX-style wrangle compiled to GPU kernels. Change any node and the shape recooks.</p>
+      </div>
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">02 · CONTENT LIBRARY</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Build once, place many times</h3>
+        <p style="margin: 0; color: #C9CDD3">Publish a build as a master; instances store only their overrides, and the renderer shares their geometry instead of copying it.</p>
+      </div>
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">03 · OPENUSD</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Imports that report what they lose</h3>
+        <p style="margin: 0; color: #C9CDD3">Stages come into Roxy's own scene model with up-axis, units and transform conventions resolved at the boundary, and every lossy conversion is counted, not hidden.</p>
+      </div>
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">04 · SPLATS &amp; MARBLE WORLDS</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Captured worlds next to CG</h3>
+        <p style="margin: 0; color: #C9CDD3">Ingests Gaussian splat captures and World Labs Marble worlds, and composites them with modeled geometry in the same render.</p>
+      </div>
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">05 · PATH TRACER</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Physically based, on the GPU</h3>
+        <p style="margin: 0; color: #C9CDD3">Principled BSDF with GGX, VNDF sampling and Kulla-Conty energy compensation; physical sky, caustics and displacement, on Metal.</p>
+      </div>
+      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">06 · ASSISTANT &amp; SCRIPTING</div>
+        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Ask, script or click: same commands</h3>
+        <p style="margin: 0; color: #C9CDD3">Claude builds through the commands you would script, with your own API key, and its changes land on the same undo stack as yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="inside" style="max-width: 1280px; margin: 0 auto; padding: 128px 24px 0; display: flex; flex-direction: column; gap: 40px">
+    <div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">INSIDE THE APP</div>
+      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Built like the tools it learned from</h2>
+      <p style="margin: 0; color: #C9CDD3">An outliner, a Details panel, a node editor, a Script Editor and a viewport, all views of the same scene, in the shape artists know from Maya and Houdini.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px">
+      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
+        <img src="/img/graph-escalator-full.jpg" alt="The escalator's whole node graph, 215 nodes in seven labelled frames" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
+        <figcaption style="font-size: 15px; color: #B4BAC2">The escalator's whole graph, laid out by the Assistant in seven labelled frames.</figcaption>
+      </figure>
+      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
+        <img src="/img/window-assistant.jpg" alt="The Assistant panel listing its steps next to the viewport and the node graph" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
+        <figcaption style="font-size: 15px; color: #B4BAC2">The Assistant mid-build: each step is a logged tool call, and a turn undoes as one entry.</figcaption>
+      </figure>
+      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
+        <img src="/img/window-script-editor.jpg" alt="The Script Editor with a short script and the hover hint for renderImage" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
+        <figcaption style="font-size: 15px; color: #B4BAC2">The Script Editor, with hover hints generated from the command registry.</figcaption>
+      </figure>
+      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
+        <img src="/img/viewport-wireframe.jpg" alt="The escalator in the viewport as a shaded wireframe" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
+        <figcaption style="font-size: 15px; color: #B4BAC2">The viewport draws a lighter display branch; the render uses full detail.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="architecture" style="max-width: 1280px; margin: 0 auto; padding: 144px 24px 0; display: flex; flex-direction: column; gap: 56px">
+    <blockquote style="margin: 0; max-width: 980px; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 600; font-size: clamp(32px, 4vw, 54px); line-height: 1.12; letter-spacing: -0.01em">The UI is a view of the scene, <span style="color: #E8A35A">never the owner of it.</span></blockquote>
+    <div style="display: flex; flex-wrap: wrap; gap: 40px">
+      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
+        <h3 style="margin: 0; font-size: 19px; font-weight: 600">One model</h3>
+        <p style="margin: 0; color: #C9CDD3">Scene and session are one Qt-free model. The outliner, Details panel and node editor are views of it, refreshed from a typed change bus.</p>
+      </div>
+      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
+        <h3 style="margin: 0; font-size: 19px; font-weight: 600">One command layer</h3>
+        <p style="margin: 0; color: #C9CDD3">A gizmo drag, a panel edit, a script and the Assistant all run registered commands, so undo behaves the same for every one of them.</p>
+      </div>
+      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
+        <h3 style="margin: 0; font-size: 19px; font-weight: 600">Honest boundaries</h3>
+        <p style="margin: 0; color: #C9CDD3">Format quirks are resolved at the IO boundary, and dependencies run one way: <code style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #E9E6E0">app → scene → core</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="max-width: 1280px; margin: 0 auto; padding: 144px 24px 96px">
+    <div style="display: flex; flex-wrap: wrap; gap: 48px 72px; border-top: 1px solid #262A31; padding-top: 64px">
+      <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">ABOUT</div>
+        <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Built by Seth Schwartz</h2>
+        <p style="margin: 0; color: #C9CDD3">I’m a senior pipeline engineer with over 14 years of experience building tools and workflows for 3D artists in feature film, interactive, and automotive visualization. I lead pipeline teams, set long-term strategy, and keep the technical and creative sides pulling in the same direction. I’m credited on 10 feature films.</p>
+        <p style="margin: 0; color: #C9CDD3">Roxy is where I build the tool I always wanted to write pipelines against.</p>
+      </div>
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px">
+        <a href="mailto:sethaschwartz@gmail.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
+          <span>Email</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">sethaschwartz@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/seth-schwartz-a626981b" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
+          <span>LinkedIn</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">seth-schwartz-a626981b</span>
+        </a>
+        <a href="/resume.pdf" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
+          <span>Resume</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">PDF</span>
+        </a>
+        <p style="margin: 8px 0 0; font-size: 15px; color: #B4BAC2">Roxy's source is private. I'm glad to walk interviewers through it or share access on request.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="metrics" aria-labelledby="metrics-heading" style="max-width: 1280px; margin: 0 auto; padding: 0 24px 120px">
+    <div style="border-top: 1px solid #262A31; padding-top: 64px; display: flex; flex-direction: column; gap: 24px">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">BENCHMARKS</div>
+      <h2 id="metrics-heading" style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Benchmarks and current metrics</h2>
+      <p style="margin: 0; max-width: 760px; font-size: 15px; color: #B4BAC2">Timed on an Apple M1 Max laptop. Counts are from Roxy’s main branch on 12 October 2026.</p>
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums">
+          <thead><tr><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">MEASURE</th><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">RESULT</th><th scope="col" style="padding: 0 0 12px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">CONDITIONS</th></tr></thead>
+          <tbody>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Commands in the registry</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">222</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">In 23 categories. The UI, scripts and the Assistant all call the same list.</td></tr>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Automated tests</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">11,753</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">In 943 modules, each filed by category and run under a time limit (full run, 11 Oct).</td></tr>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Import Pixar’s Kitchen_set</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">1.25 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">OpenUSD, 1,788 meshes, 536,949 triangles, smooth normals computed on import.</td></tr>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Render a Kitchen_set still</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">about 3½ min</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">1600 × 900, 256 samples, denoised.</td></tr>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Cornell box, by the Assistant</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">about 5 min</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">From prompt to saved render, including the 1024 × 1024, 256-sample final frame.</td></tr>
+          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Two-level BVH</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">37% faster</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">Against the flat BVH it replaced, by sharing geometry between instances.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid #262A31">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #B4BAC2">
+      <span>© 2026 Seth Schwartz</span>
+      <span>Every image on this page was rendered in Roxy.</span>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
