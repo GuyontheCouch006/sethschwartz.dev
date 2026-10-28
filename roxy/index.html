@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Roxy · a 3D content tool by Seth Schwartz</title>
-<meta name="description" content="Roxy is a procedural 3D content tool built from scratch: node-based modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant.">
+<title>Roxy · a procedural DCC by Seth Schwartz</title>
+<meta name="description" content="Roxy is a procedural DCC built from scratch: node-based modelling, OpenUSD, Gaussian splats, a GPU path tracer and a Claude assistant that drives it through the same commands as the UI.">
 <link rel="canonical" href="https://sethschwartz.dev/roxy/">
-<meta name="theme-color" content="#0B0D10">
+<meta name="theme-color" content="#0b0c0e">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Seth Schwartz">
-<meta property="og:title" content="Roxy · a 3D content tool by Seth Schwartz">
-<meta property="og:description" content="Roxy is a procedural 3D content tool built from scratch: node-based modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant.">
+<meta property="og:title" content="Roxy · a procedural DCC by Seth Schwartz">
+<meta property="og:description" content="A procedural DCC, built from scratch, that an AI can drive: node-based modelling, OpenUSD, Gaussian splats and a GPU path tracer, all through one command layer.">
 <meta property="og:url" content="https://sethschwartz.dev/roxy/">
 <meta property="og:image" content="https://sethschwartz.dev/img/og-card.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,278 +20,291 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
-<style>
-body{margin:0;background:#0B0D10}
-a{color:#E8A35A}a:hover{color:#F2C08A}
-img{max-width:100%}
-@media (max-width: 640px){.card-img{min-height:560px!important}}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="/site.css">
 </head>
 <body>
-<div style="background: #0B0D10; color: #E9E6E0; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; min-height: 100%">
+<a class="skip" href="#main">Skip to content</a>
 
-  <header style="position: absolute; top: 0; left: 0; right: 0; z-index: 2">
-    <nav aria-label="Primary" style="max-width: 1280px; margin: 0 auto; padding: 22px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
-      <a href="#top" style="display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: #E9E6E0">
-        <span style="font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800; font-size: 22px; letter-spacing: 0.08em">ROXY</span>
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B4BAC2">by Seth Schwartz</span>
-      </a>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; font-size: 15px">
-        <a href="/" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">sethschwartz.dev</a>
-        <a href="#work" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Work</a>
-        <a href="#inside" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Inside the app</a>
-        <a href="#architecture" style="color: #E9E6E0; text-decoration: none; padding: 10px 0">Architecture</a>
-        <a href="#about" style="color: #0B0D10; background: #E9E6E0; text-decoration: none; padding: 10px 18px; border-radius: 999px; font-weight: 600">Contact</a>
-      </div>
-    </nav>
-  </header>
+<header class="wrap site-head">
+  <a class="brand" href="#top">ROXY <span>by Seth Schwartz</span></a>
+  <nav aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="#work">Work</a>
+    <a href="#assistant">Assistant</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="/resume.pdf">Résumé</a>
+    <a class="pill" href="#about">Contact</a>
+  </nav>
+</header>
 
-  <section id="top" style="position: relative; height: 820px; overflow: hidden">
-    <img src="/img/kitchen-wide.jpg" alt="Pixar's Kitchen_set rendered in Roxy: a cluttered kitchen with a ceiling lamp, a green stove, a blue fridge and a table in the foreground" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%">
-    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(to bottom, rgba(11,13,16,0), rgba(11,13,16,0.82) 55%, #0B0D10)"></div>
-    <div style="position: absolute; left: 0; right: 0; bottom: 0">
-      <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px 56px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px">
-        <div style="flex: 1 1 560px; max-width: 760px; display: flex; flex-direction: column; gap: 20px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">A 3D CONTENT TOOL, BUILT FROM SCRATCH</div>
-          <h1 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 125%; font-weight: 800; font-size: clamp(72px, 11vw, 168px); line-height: 0.9; letter-spacing: -0.01em">Roxy</h1>
-          <p style="margin: 0; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.5; color: #E9E6E0">Node-based procedural modeling, OpenUSD, Gaussian splats, a GPU path tracer and an AI assistant, all driving one scene model through one command layer.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px">
-            <a href="#samples" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: #E8A35A; color: #0B0D10; font-weight: 600; text-decoration: none">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-              See the samples
-            </a>
-            <a href="#architecture" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid #5B616B; color: #E9E6E0; font-weight: 500; text-decoration: none">How it's built</a>
-          </div>
-        </div>
-        <p style="flex: 0 1 340px; margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.65; color: #B4BAC2">Pixar’s Kitchen_set, imported from OpenUSD and rendered with Roxy’s path tracer.</p>
-      </div>
-    </div>
-  </section>
+<main id="main">
 
-  <section id="samples" aria-labelledby="samples-heading" style="max-width: 1280px; margin: 0 auto; padding: 112px 24px 0; display: flex; flex-direction: column; gap: 96px">
-    <div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
-      <h2 id="samples-heading" style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Samples</h2>
-      <p style="margin: 0; color: #C9CDD3">A scene the Assistant built, a production USD asset, and a procedural model, each recorded or rendered in the app.</p>
+<section id="top" class="wrap hero">
+  <div class="hero-text">
+    <div class="eyebrow">Personal R&amp;D · since 30 April 2026</div>
+    <h1>A procedural DCC, built from scratch, that an AI can drive.</h1>
+    <p class="lede">Node-based modelling, production OpenUSD, Gaussian splats and a GPU path tracer, in one scene model with one command layer. Menus, scripts and a built-in Claude assistant all go through the same 313 commands.</p>
+    <div class="buttons">
+      <a class="btn primary" href="#watch">Watch it build</a>
+      <a class="btn" href="/resume.pdf">Résumé (PDF)</a>
+      <a class="btn" href="#architecture">How it's built</a>
     </div>
-    <div id="demo" style="display: flex; flex-direction: column; gap: 28px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
-        <div style="display: flex; flex-direction: column; gap: 14px">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">CORNELL BOX</div>
-          <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">The Assistant builds it, the path tracer renders it</h3>
-        </div>
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B4BAC2">about 5 minutes, shown about 13× faster</span>
-      </div>
-      <img src="/img/cornell-assistant-timelapse.webp" alt="A sped-up recording of Roxy: the Assistant panel works through a prompt while a Cornell box appears in the viewport, then the Render View fills in the final image" loading="lazy" style="display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid #262A31">
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px">
-        <img src="/img/cornell-box.jpg" alt="A Cornell box: a white room with a red left wall and a green right wall, two white blocks and a square ceiling light" loading="lazy" style="flex: 1 1 360px; max-width: 520px; min-width: 0; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left top; border-radius: 14px">
-        <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
-          <p style="margin: 0; color: #C9CDD3">One paragraph of prompt in, a lit and rendered scene out. Every step the Assistant takes is a logged tool call through the same command layer a script uses, and the whole turn undoes as one entry.</p>
-          <p style="margin: 0; color: #C9CDD3">The final frame: 1024 × 1024, 256 samples, denoised. The red and green bleeding onto the white blocks is light that bounced, not painted.</p>
-        </div>
-      </div>
-    </div>
-    <div style="display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 40px 56px">
-      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">OPENUSD</div>
-        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">Pixar's Kitchen_set, imported and rendered</h3>
-        <p style="margin: 0; color: #C9CDD3">The stage is converted into Roxy's own scene model, hierarchy and all, then the camera moves into the kitchen and the path tracer renders two views of the interior. Sped up, ending on the finished renders.</p>
-      </div>
-      <img src="/img/kitchen-usd-timelapse.webp" alt="A sped-up recording of Roxy importing Pixar's Kitchen_set from OpenUSD, gliding into the kitchen and rendering two views of the interior" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; height: auto; border-radius: 14px">
-    </div>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px">
-      <img src="/img/escalator-spiral.jpg" alt="The procedural escalator on a circular path, winding up as a spiral" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 14px">
-      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">PROCEDURAL ESCALATOR</div>
-        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">One asset, any path</h3>
-        <p style="margin: 0; color: #C9CDD3">The same escalator becomes a flat walkway, a straight escalator, an S-curve or a spiral, depending only on the path it follows. Steps, wedges, balustrades, handrails and landings all rebuild from that path and seven controls.</p>
-      </div>
-    </div>
-    <div style="display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 40px 56px">
-      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 14px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">THE ESCALATOR’S GRAPH</div>
-        <h3 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 30px; line-height: 1.15">215 nodes in seven labelled frames</h3>
-        <p style="margin: 0; color: #C9CDD3">The path is resampled into frames and anchored, one step is modelled, and eleven wedge variants are packed onto the frames. A lighter display branch feeds the viewport and a full-detail branch feeds the render.</p>
-      </div>
-      <img src="/img/graph-escalator-steps.jpg" alt="A close-up of the escalator's node graph: the path and anchor frame, then the step prototype and its eleven wedge variants" loading="lazy" style="flex: 999 1 560px; min-width: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: left top; border-radius: 14px">
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 32px 24px; margin-top: -40px">
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/escalator-walkway.jpg" alt="The asset as a flat moving walkway" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">No rise: the same asset as a flat moving walkway.</figcaption>
-      </figure>
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/escalator-straight.jpg" alt="The same asset as a straight escalator between two floors" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">A straight path with a 450 cm rise.</figcaption>
-      </figure>
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/escalator-s-curve-plan.jpg" alt="The escalator following an S-shaped path, seen from above" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">An S-curve path, seen from above.</figcaption>
-      </figure>
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/escalator-spiral-wedges.jpg" alt="Wedge-shaped steps on the spiral escalator: grooved treads with yellow safety edges, brushed steel and a glass balustrade" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">Wedge steps on the spiral: grooved treads, brushed steel and glass.</figcaption>
-      </figure>
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/window-spiral.jpg" alt="Roxy's window with the escalator on a circular path, winding into a spiral" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">The spiral in Roxy’s window, with its graph and controls.</figcaption>
-      </figure>
-      <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-        <img src="/img/details-panel.jpg" alt="The Details panel showing the escalator's controls: rise, angle, step width, flat steps, anchor, step travel and detail" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: contain; object-position: 50% 0%; background: #15181D; border-radius: 12px; border: 1px solid #262A31">
-        <figcaption style="font-size: 14px; line-height: 1.5; color: #B4BAC2">The seven controls the graph exposes, in the Details panel.</figcaption>
-      </figure>
-    </div>
-  </section>
+  </div>
+  <figure class="hero-media"><video class="media" src="/img/clip-cornell-assistant.mp4" poster="/img/clip-cornell-assistant.jpg" width="1600" height="1000" muted loop playsinline controls preload="metadata" data-auto aria-label="Screen recording of the Roxy Assistant building a Cornell box from one prompt, with the command log visible beside the viewport."></video></figure>
+</section>
 
-  <section id="work" style="max-width: 1280px; margin: 0 auto; padding: 128px 24px 0; display: flex; flex-direction: column; gap: 48px">
-    <div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">WHAT IT DOES</div>
-      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">One tool, from first primitive to final frame</h2>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 1px; background: #262A31; border: 1px solid #262A31; border-radius: 14px; overflow: hidden">
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">01 · PROCEDURAL MODELING</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Every shape owns a node graph</h3>
-        <p style="margin: 0; color: #C9CDD3">Extrude, inset, bevel, array, heightfield terrain with erosion, and a VEX-style wrangle compiled to GPU kernels. Change any node and the shape recooks.</p>
-      </div>
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">02 · CONTENT LIBRARY</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Build once, place many times</h3>
-        <p style="margin: 0; color: #C9CDD3">Publish a build as a master; instances store only their overrides, and the renderer shares their geometry instead of copying it.</p>
-      </div>
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">03 · OPENUSD</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Imports that report what they lose</h3>
-        <p style="margin: 0; color: #C9CDD3">Stages come into Roxy's own scene model with up-axis, units and transform conventions resolved at the boundary, and every lossy conversion is counted, not hidden.</p>
-      </div>
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">04 · SPLATS &amp; MARBLE WORLDS</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Captured worlds next to CG</h3>
-        <p style="margin: 0; color: #C9CDD3">Ingests Gaussian splat captures and World Labs Marble worlds, and composites them with modeled geometry in the same render.</p>
-      </div>
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">05 · PATH TRACER</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Physically based, on the GPU</h3>
-        <p style="margin: 0; color: #C9CDD3">Principled BSDF with GGX, VNDF sampling and Kulla-Conty energy compensation; physical sky, caustics and displacement, on Metal.</p>
-      </div>
-      <div style="flex: 1 1 340px; background: #0B0D10; padding: 32px; display: flex; flex-direction: column; gap: 12px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">06 · ASSISTANT &amp; SCRIPTING</div>
-        <h3 style="margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3">Ask, script or click: same commands</h3>
-        <p style="margin: 0; color: #C9CDD3">Claude builds through the commands you would script, with your own API key, and its changes land on the same undo stack as yours.</p>
-      </div>
-    </div>
-  </section>
+<section class="wrap proof" aria-label="By the numbers">
+  <div class="stats">
+<div class="stat"><div class="stat-v">313</div><div class="stat-l">commands in one registry</div></div>
+<div class="stat"><div class="stat-v">17,299</div><div class="stat-l">automated tests</div></div>
+<div class="stat"><div class="stat-v">4,624</div><div class="stat-l">commits since 30 April 2026</div></div>
+<div class="stat"><div class="stat-v">254k</div><div class="stat-l">lines of Python, 8 packages</div></div>
+<div class="stat"><div class="stat-v">1.4 s</div><div class="stat-l">to import Pixar’s Kitchen_set</div></div>
+  </div>
+  <p class="note">Timings are medians of three warm runs on a MacBook Pro (M1 Max, 64 GB), 13 October 2026. Counts are from the main branch on 28 October 2026.</p>
+</section>
 
-  <section id="inside" style="max-width: 1280px; margin: 0 auto; padding: 128px 24px 0; display: flex; flex-direction: column; gap: 40px">
-    <div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">INSIDE THE APP</div>
-      <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Built like the tools it learned from</h2>
-      <p style="margin: 0; color: #C9CDD3">An outliner, a Details panel, a node editor, a Script Editor and a viewport, all views of the same scene, in the shape artists know from Maya and Houdini.</p>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 24px">
-      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
-        <img src="/img/graph-escalator-full.jpg" alt="The escalator's whole node graph, 215 nodes in seven labelled frames" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
-        <figcaption style="font-size: 15px; color: #B4BAC2">The escalator's whole graph, laid out by the Assistant in seven labelled frames.</figcaption>
-      </figure>
-      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
-        <img src="/img/window-assistant.jpg" alt="The Assistant panel listing its steps next to the viewport and the node graph" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
-        <figcaption style="font-size: 15px; color: #B4BAC2">The Assistant mid-build: each step is a logged tool call, and a turn undoes as one entry.</figcaption>
-      </figure>
-      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
-        <img src="/img/window-script-editor.jpg" alt="The Script Editor with a short script and the hover hint for renderImage" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
-        <figcaption style="font-size: 15px; color: #B4BAC2">The Script Editor, with hover hints generated from the command registry.</figcaption>
-      </figure>
-      <figure style="flex: 1 1 520px; margin: 0; display: flex; flex-direction: column; gap: 12px">
-        <img src="/img/viewport-wireframe.jpg" alt="The escalator in the viewport as a shaded wireframe" loading="lazy" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid #262A31">
-        <figcaption style="font-size: 15px; color: #B4BAC2">The viewport draws a lighter display branch; the render uses full detail.</figcaption>
-      </figure>
-    </div>
-  </section>
+<section id="watch" class="wrap section">
+  <div class="intro" id="work">
+    <div class="eyebrow">Watch it work</div>
+    <h2>Six short clips. No audio.</h2>
+    <p class="body">Every clip is a screen recording of the app. The kitchen and escalator clips run in real time; the Assistant turns and the render are time-lapsed so they fit.</p>
+  </div>
+  <div class="grid clips">
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-cornell-assistant.mp4" poster="/img/clip-cornell-assistant.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy Assistant building a Cornell box, with the command log on the right."></video><figcaption class="clip"><strong>The Assistant builds a Cornell box.</strong> One prompt to a saved render in about five minutes. Time-lapse.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-kitchen-import.mp4" poster="/img/clip-kitchen-import.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of Pixar’s Kitchen_set opening in Roxy."></video><figcaption class="clip"><strong>Moving into Kitchen_set.</strong> Pixar’s production scene opens in 1.4 s and orbits at 114 fps. Real time.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-escalator-sliders.mp4" poster="/img/clip-escalator-sliders.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the escalator node graph and viewport side by side while sliders change the step count."></video><figcaption class="clip"><strong>One slider, a whole staircase.</strong> Change the step count and the sweep radius; every downstream node recooks live. Real time.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-render-converge.mp4" poster="/img/clip-render-converge.jpg" width="1600" height="900" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy render view converging from noise to a denoised frame."></video><figcaption class="clip"><strong>A frame converging.</strong> The path tracer refining from noise to a denoised image. Time-lapse.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-undo-turn.mp4" poster="/img/clip-undo-turn.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of one undo removing everything the Assistant just built."></video><figcaption class="clip"><strong>One undo removes the whole turn.</strong> Everything the Assistant just built disappears in a single step. The build is time-lapsed; the undo is real time.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-wine-glass.mp4" poster="/img/clip-wine-glass.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy Assistant setting up a wine glass scene for a caustics render."></video><figcaption class="clip"><strong>Asking for glass.</strong> The Assistant models a wine glass from a revolved outline and sets up a caustics render. Time-lapse.</figcaption></figure>
+  </div>
+</section>
 
-  <section id="architecture" style="max-width: 1280px; margin: 0 auto; padding: 144px 24px 0; display: flex; flex-direction: column; gap: 56px">
-    <blockquote style="margin: 0; max-width: 980px; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 600; font-size: clamp(32px, 4vw, 54px); line-height: 1.12; letter-spacing: -0.01em">The UI is a view of the scene, <span style="color: #E8A35A">never the owner of it.</span></blockquote>
-    <div style="display: flex; flex-wrap: wrap; gap: 40px">
-      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
-        <h3 style="margin: 0; font-size: 19px; font-weight: 600">One model</h3>
-        <p style="margin: 0; color: #C9CDD3">Scene and session are one Qt-free model. The outliner, Details panel and node editor are views of it, refreshed from a typed change bus.</p>
-      </div>
-      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
-        <h3 style="margin: 0; font-size: 19px; font-weight: 600">One command layer</h3>
-        <p style="margin: 0; color: #C9CDD3">A gizmo drag, a panel edit, a script and the Assistant all run registered commands, so undo behaves the same for every one of them.</p>
-      </div>
-      <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #3A3F48; padding-top: 20px">
-        <h3 style="margin: 0; font-size: 19px; font-weight: 600">Honest boundaries</h3>
-        <p style="margin: 0; color: #C9CDD3">Format quirks are resolved at the IO boundary, and dependencies run one way: <code style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #E9E6E0">app → scene → core</code>.</p>
-      </div>
+<section id="assistant" class="band">
+  <div class="wrap split">
+    <div class="split-text">
+      <div class="eyebrow">The Assistant</div>
+      <h2>An agent that works through the same door as you.</h2>
+      <p class="body">Roxy’s Assistant is a Claude agent loop with eleven tools. It can look up command help and the help docs, describe the scene, inspect a node, run Python, look at the viewport, load a skill, and split a reference sheet into view planes. Whatever it builds, it builds with the same registered commands the menus use, so there is no second code path to drift out of sync.</p>
+      <ul class="points">
+<li><span class="dot"></span><span><strong>Ask mode reads, Act mode builds.</strong> Ask mode inspects the scene; Act mode builds in it through the same commands.</span></li>
+<li><span class="dot"></span><span><strong>One turn is one undo step.</strong> Grouped commands, as in Maya and Houdini.</span></li>
+<li><span class="dot"></span><span><strong>Money needs a click.</strong> Anything that spends credits or API cost shows an approval card first, with per-turn and monthly caps.</span></li>
+<li><span class="dot"></span><span><strong>Your key, your machine.</strong> It uses your own API key, kept in the system keychain. Threads are saved per scene.</span></li>
+<li><span class="dot"></span><span><strong>It sees what changed.</strong> Each turn it is given the scene diff since its last turn, straight from the change bus.</span></li>
+<li><span class="dot"></span><span><strong>It reads images.</strong> Paste, drop or pick an image or a PDF. A reference sheet splits into lined-up view planes.</span></li>
+      </ul>
     </div>
-  </section>
+    <div class="split-media">
+<figure style="flex:1 1 100%"><img class="media" src="/img/assistant-panel.webp" width="960" height="720" alt="The Roxy Assistant panel mid-task with tool calls listed." loading="lazy" decoding="async"><figcaption class="">Every tool call is a registered command.</figcaption></figure>
+<figure style="flex:1 1 100%"><img class="media" src="/img/approval-card.webp" width="812" height="284" alt="The Assistant approval card asking before a spending action." loading="lazy" decoding="async"><figcaption class="">Anything that spends asks first.</figcaption></figure>
+<figure style="flex:1 1 100%"><video class="media" src="/img/clip-reference-sheet.mp4" poster="/img/clip-reference-sheet.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy Assistant reading an attached drawing of a tower and proposing a split into front, top and detail views."></video><figcaption class="">An archive drawing goes in; the Assistant proposes how to split it into views, ready to become lined-up image planes. Time-lapse of a 35-second turn.</figcaption></figure>
+    </div>
+  </div>
+</section>
 
-  <section id="about" style="max-width: 1280px; margin: 0 auto; padding: 144px 24px 96px">
-    <div style="display: flex; flex-wrap: wrap; gap: 48px 72px; border-top: 1px solid #262A31; padding-top: 64px">
-      <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px">
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: #E8A35A">ABOUT</div>
-        <h2 style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Built by Seth Schwartz</h2>
-        <p style="margin: 0; color: #C9CDD3">I’m a senior pipeline engineer with over 14 years of experience building tools and workflows for 3D artists in feature film, interactive, and automotive visualization. I lead pipeline teams, set long-term strategy, and keep the technical and creative sides pulling in the same direction. I’m credited on 10 feature films.</p>
-        <p style="margin: 0; color: #C9CDD3">Roxy is where I build the tool I always wanted to write pipelines against.</p>
-      </div>
-      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px">
-        <a href="mailto:sethaschwartz@gmail.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
-          <span>Email</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">sethaschwartz@gmail.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/seth-schwartz-a626981b" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
-          <span>LinkedIn</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">seth-schwartz-a626981b</span>
-        </a>
-        <a href="/resume.pdf" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 20px; border: 1px solid #3A3F48; border-radius: 12px; color: #E9E6E0; text-decoration: none">
-          <span>Resume</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #B4BAC2">PDF</span>
-        </a>
-        <p style="margin: 8px 0 0; font-size: 15px; color: #B4BAC2">Roxy's source is private. I'm glad to walk interviewers through it or share access on request.</p>
-      </div>
-    </div>
-  </section>
+<section class="wrap section">
+  <div class="intro">
+    <div class="eyebrow">Real scenes</div>
+    <h2>Production USD in, path-traced frames out.</h2>
+    <p class="body">Open Pixar’s Kitchen_set (1,788 meshes, 536,949 triangles) in 1.4 s. Up-axis, units and matrix conventions are resolved at the import boundary, prims keep their transforms, and every import reports what it could not carry across. UsdPreviewSurface materials come across with their textures, drawn in the viewport and streamed on demand into the path tracer, and USD cameras and UsdLux lights come in as Roxy cameras and lights. Gaussian-splat captures (PLY or SPZ) load as ordinary selectable scene objects: 305,872 splats in 0.08 s.</p>
+  </div>
+  <div class="grid">
+<figure style="flex:1 1 100%"><img class="media" src="/img/kitchen-render.webp" width="1600" height="900" alt="Pixar’s Kitchen_set path-traced in Roxy." loading="lazy" decoding="async"><figcaption class="">Pixar’s Kitchen_set (© Pixar), rendered in Roxy: 1600 × 900, 256 samples, denoised, about 3.5 minutes on an M1 Max.</figcaption></figure>
+<figure style="flex:1 1 320px"><img class="media" src="/img/import-report.webp" width="760" height="1124" alt="The Roxy import report listing what was not carried across." loading="lazy" decoding="async"><figcaption class="">Every import says what it could not carry across.</figcaption></figure>
+<figure style="flex:1 1 320px"><img class="media" src="/img/splat-porsche.webp" width="1600" height="1200" alt="A Gaussian splat of a LEGO Technic Porsche rendered in Roxy, reflected in a chrome sphere beside it." loading="lazy" decoding="async"><figcaption class="">“LEGO® 42056 Porsche 911 GT3 RS (LDraw)” by Renderbricks, CC BY 4.0. 524,288 splats imported in 0.5 s, then lit and path-traced in Roxy, so the car shows up in the reflection in the sphere (credits below).</figcaption></figure>
+<figure style="flex:2 1 480px"><img class="media" src="/img/usd-materials-render.webp" width="1600" height="900" alt="A path-traced still life from a USD stage: a wooden table with a globe, a patterned vase, a chessboard and books on a red rug, against striped wallpaper." loading="lazy" decoding="async"><figcaption class="">A small USD stage authored for this demo, path-traced through its own USD camera and two UsdLux lights: 12 UsdPreviewSurface materials, 13 textures. 1600 × 900, 256 samples, denoised.</figcaption></figure>
+<figure style="flex:1 1 320px"><img class="media" src="/img/usd-materials-window.webp" width="1813" height="1500" alt="Roxy&#x27;s outliner showing the USD stage hierarchy beside a textured viewport of the still life." loading="lazy" decoding="async"><figcaption class="">The same stage in the viewport, textures drawn live, with its USD hierarchy in the outliner.</figcaption></figure>
+  </div>
+</section>
 
-  <section id="metrics" aria-labelledby="metrics-heading" style="max-width: 1280px; margin: 0 auto; padding: 0 24px 120px">
-    <div style="border-top: 1px solid #262A31; padding-top: 64px; display: flex; flex-direction: column; gap: 24px">
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #E8A35A">BENCHMARKS</div>
-      <h2 id="metrics-heading" style="margin: 0; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1">Benchmarks and current metrics</h2>
-      <p style="margin: 0; max-width: 760px; font-size: 15px; color: #B4BAC2">Timed on a MacBook Pro with an Apple M1 Max. Counts are from Roxy’s main branch on 12 October 2026.</p>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums">
-          <thead><tr><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">MEASURE</th><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">RESULT</th><th scope="col" style="padding: 0 0 12px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">CONDITIONS</th></tr></thead>
-          <tbody>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Commands in the registry</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">222</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">In 23 categories. The UI, scripts and the Assistant all call the same list.</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Automated tests</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">11,753</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">In 943 modules, each filed by category and run under a time limit (full run, 11 Oct).</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Import Pixar’s Kitchen_set</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">1.4 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">OpenUSD, 1,788 meshes, smooth normals computed on import. Median of three runs.</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Render a Kitchen_set still</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">about 3½ min</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">1600 × 900, 256 samples, denoised.</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Cornell box, by the Assistant</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">about 5 min</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">From prompt to saved render, including the 1024 × 1024, 256-sample final frame.</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Two-level BVH</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 22px; white-space: nowrap">37% faster</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px">Against the flat BVH it replaced, by sharing geometry between instances.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <h3 style="margin: 40px 0 0; font-family: 'Archivo', sans-serif; font-stretch: 105%; font-weight: 700; font-size: 26px; line-height: 1.2">One codebase, two machines</h3>
-      <p style="margin: 0; max-width: 760px; font-size: 15px; color: #B4BAC2">The same Roxy build on a MacBook Pro (Apple M1 Max, Metal) and a Windows 11 workstation (Ryzen 9 9950X3D, RTX 5090, CUDA and Vulkan), measured by Roxy’s own benchmark tool: medians of three warm runs, 13 October 2026. Whole renders gain less than tracing because the denoiser and the BVH build run on the CPU. Both viewports run at their screen’s refresh rate, 120 Hz on the Mac and 60 Hz on the workstation, with about 0.3 ms of CPU work per frame. The Windows build is still in testing.</p>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums">
-          <thead><tr><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">MEASURE</th><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">M1 MAX</th><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2">RTX 5090</th><th scope="col" style="padding: 0 24px 12px 0; text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.12em; color: #B4BAC2; padding-right: 0">GAIN</th></tr></thead>
-          <tbody>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Path tracing, 1920 × 1080</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">140 Mrays/s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">681 Mrays/s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">4.9×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Whole 1080p render, denoise included</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">3.9 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">1.9 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">2.1×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Caustics scene, tracing</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">0.90 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">0.14 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">6.7×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Terrain, tracing</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">0.90 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">0.13 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">7.0×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Path-traced Gaussian splats</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">1.3 Mrays/s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">16.4 Mrays/s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">12×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Import Kitchen_set</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">1.4 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">1.1 s</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">1.3×</td></tr>
-          <tr><th scope="row" style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; text-align: left; font-weight: 600">Viewport, orbiting Kitchen_set</th><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">114 fps</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; font-family: 'Archivo', sans-serif; font-stretch: 110%; font-weight: 700; font-size: 20px; white-space: nowrap">61 fps</td><td style="padding: 16px 24px 16px 0; border-top: 1px solid #262A31; vertical-align: top; color: #B4BAC2; font-size: 15px; white-space: nowrap">screen cap</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+<section class="wrap section">
+  <div class="intro">
+    <div class="eyebrow">Procedural modelling</div>
+    <h2>Every shape is a node graph, and every edit stays live.</h2>
+    <p class="body">Primitives, poly operators, curves (sweep, revolve, loft), terrain with erosion, scatter and copy-to-points. A VEX-style wrangle node compiles per-element code to GPU kernels. Menu tools insert their node into the shape’s chain, so nothing is ever baked. Deformers stack on top and stay live: bend and twist, lattice, wire, cluster and soft modification, delta mush and shrink-wrap, with painted weights. Voronoi fracture, UV unwrap and projection, and booleans that keep quads. Blueprint tools let you place reference images, trace curves on them, then sweep or loft the sections, with typed units: 1.2 m becomes 120 in a centimetre scene.</p>
+  </div>
+  <div class="grid">
+<figure style="flex:2 1 480px"><img class="media" src="/img/graph-escalator.webp" width="1620" height="2400" alt="Part of the escalator node graph in Roxy." loading="lazy" decoding="async"><figcaption class="">The escalator is one graph; every promoted knob is a live control.</figcaption></figure>
+<figure style="flex:1 1 280px"><img class="media" src="/img/wrangle.webp" width="2400" height="1800" alt="A wrangle node with its code and the resulting displacement." loading="lazy" decoding="async"><figcaption class="">Per-element code compiled to GPU kernels.</figcaption></figure>
+<figure style="flex:1 1 340px"><video class="media" src="/img/clip-deform-live.mp4" poster="/img/clip-deform-live.jpg" width="1600" height="1098" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of a twist and a bend deformer being dragged on a column while the viewport updates."></video><figcaption class="">A twist and a bend stacked on a column, each dragged live. Each drag is one undo step. Real time.</figcaption></figure>
+<figure style="flex:1 1 340px"><img class="media" src="/img/voronoi-fracture.webp" width="1600" height="1000" alt="A sphere fractured into 36 Voronoi pieces, pulled apart, with orange cut faces." loading="lazy" decoding="async"><figcaption class="">Voronoi fracture: a sphere cut into 36 pieces and pulled apart, the cut faces in their own material.</figcaption></figure>
+<figure style="flex:1 1 340px"><img class="media" src="/img/uv-checker.webp" width="1600" height="1000" alt="Two teapots with a checker texture: stretched by a planar projection on the left, evenly unwrapped on the right." loading="lazy" decoding="async"><figcaption class="">One checker on two teapots: a planar projection stretches on the left; UV Unwrap keeps the squares even on the right.</figcaption></figure>
+  </div>
+</section>
 
-  <footer style="border-top: 1px solid #262A31">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #B4BAC2">
-      <span>© 2026 Seth Schwartz</span>
-      <span>Every image on this page was rendered in Roxy.</span>
+<section class="wrap section">
+  <div class="intro">
+    <div class="eyebrow">Look and render</div>
+    <h2>A path tracer with the production features in it.</h2>
+    <p class="body">Principled BSDF with energy conservation, shader graphs, sun and sky, and UsdLux lights with exposure, spot shaping and light linking, sampled through a light BVH. Subsurface random walks, photon-mapped caustics, height fog, displacement, motion blur, render passes and a guided denoiser, on a Taichi wavefront tracer with a two-level BVH. 140 million rays per second at 1080p on an M1 Max. A Kitchen_set still at 1600 × 900, 256 samples, denoised, takes about 3.5 minutes.</p>
+  </div>
+  <div class="grid">
+<figure style="flex:2 1 480px"><div class="pair"><div><img class="media" src="/img/light-links-off.webp" width="1600" height="900" alt="Three white statues under red, cyan and warm lights with no links: the colours wash over everything." loading="lazy" decoding="async"><span class="tag">Links off</span></div><div><img class="media" src="/img/light-links-on.webp" width="1600" height="900" alt="The same frame with each coloured light linked to one statue: the floor and wall stay neutral." loading="lazy" decoding="async"><span class="tag">Links on</span></div></div><figcaption class="">Light linking: three coloured lights, each linked to one statue, while the floor and wall see only the white key. 512 samples, denoised.</figcaption></figure>
+<figure style="flex:1 1 280px"><div class="strip"><div><img class="media" src="/img/pass-albedo.webp" width="800" height="450" alt="Albedo pass of the statue scene." loading="lazy" decoding="async"><span class="tag">Albedo</span></div><div><img class="media" src="/img/pass-normal.webp" width="800" height="450" alt="Normal pass of the statue scene." loading="lazy" decoding="async"><span class="tag">Normal</span></div><div><img class="media" src="/img/pass-depth.webp" width="800" height="450" alt="Depth pass of the statue scene." loading="lazy" decoding="async"><span class="tag">Depth</span></div><div><img class="media" src="/img/pass-id.webp" width="800" height="450" alt="Object ID pass of the statue scene." loading="lazy" decoding="async"><span class="tag">ID</span></div></div><figcaption class="">Render passes for the same camera from one renderPasses call, in 2.9 s.</figcaption></figure>
+<figure style="flex:2 1 480px"><div class="pair"><div><img class="media" src="/img/denoise-before.webp" width="2400" height="1350" alt="The Kitchen_set frame before denoising." loading="lazy" decoding="async"><span class="tag">Before</span></div><div><img class="media" src="/img/denoise-after.webp" width="2400" height="1350" alt="The same frame after guided denoising." loading="lazy" decoding="async"><span class="tag">After</span></div></div><figcaption class="">Guided denoiser, same frame.</figcaption></figure>
+<figure style="flex:1 1 280px"><img class="media" src="/img/caustics-wine.webp" width="1600" height="1200" alt="A wine glass with caustics rendered in Roxy." loading="lazy" decoding="async"><figcaption class="">Photon-mapped caustics.</figcaption></figure>
+<figure style="flex:2 1 480px"><img class="media" src="/img/material-presets.webp" width="2400" height="686" alt="Eight material presets on spheres, from stone to water." loading="lazy" decoding="async"><figcaption class="">Principled BSDF presets.</figcaption></figure>
+<figure style="flex:1 1 280px"><img class="media" src="/img/library-instances.webp" width="1600" height="554" alt="The Library panel showing a master and its instances." loading="lazy" decoding="async"><figcaption class="">1,000 instances (2.2 million triangles) draw in one call.</figcaption></figure>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="split-text">
+      <div class="eyebrow">Scripting</div>
+      <h2>Everything is a command.</h2>
+      <p class="body">313 commands in 24 categories live in one registry. The Script Editor, the Python console, the menus, the shelves and the Assistant are all generated from that list, and a generated .pyi file gives editors completion. A slider drag is a command too (beginEdit, previewEdit, commitEdit), so the UI never changes the scene by another route.</p>
     </div>
-  </footer>
-</div>
+    <div class="split-media">
+<figure style="flex:1 1 100%"><pre class="code"><code># Three material presets on spheres, lit by a sun and sky, then rendered.
+s = roxy.scene
+s.polyPlane(&quot;floor&quot;, width=1200, depth=1200)
+for i, preset in enumerate((&quot;stone&quot;, &quot;brick&quot;, &quot;water&quot;)):
+    ball = s.polySphere(f&quot;{preset}_ball&quot;, x=(i - 1) * 140, y=50, radius=50, segments=48, rings=24)
+    s.assignMaterial(ball.shape, s.createMaterial(name=f&quot;{preset}_mat&quot;, preset=preset))
+sun = s.createLight(&quot;distant&quot;, &quot;sun&quot;, intensity=3.0)
+s.createSky(&quot;sky&quot;, sun=sun)
+s.createCamera(&quot;cam&quot;, x=0, y=170, z=620, target=(0, 45, 0), fov=40)
+s.setActiveCamera(&quot;cam&quot;)
+s.renderImage(&quot;c1-render.png&quot;, width=960, height=540, samples=128, denoise=True)</code></pre><figcaption class="">Short and long parameter names both work.</figcaption></figure>
+<figure style="flex:1 1 100%"><img class="media" src="/img/script-editor.webp" width="1600" height="481" alt="The Roxy Script Editor." loading="lazy" decoding="async"><figcaption class="">The Script Editor and the console share one output feed.</figcaption></figure>
+<figure style="flex:1 1 100%"><img class="media" src="/img/console.webp" width="1600" height="481" alt="The Roxy console showing command output." loading="lazy" decoding="async"><figcaption class="">The console prints the same command feed.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="architecture" class="wrap section arch">
+  <div class="intro">
+    <div class="eyebrow">Architecture</div>
+    <h2>The UI is a view of the scene, never its owner.</h2>
+    <p class="body">Eight Python packages, about 254,000 lines excluding tests, layered so dependencies run one way: the UI and the Assistant on top, the roxy command layer beneath them, then a Qt-free scene model, with geometry and maths kernels at the base. Every edit runs through one command layer; views only listen.</p>
+  </div>
+
+  <div class="layers" role="img" aria-label="Layer diagram: the UI shell and the Assistant call the roxy command registry; commands change the Qt-free scene model, which the renderer reads; all of it is built on the geometry and core packages.">
+    <div class="layer">
+      <div class="box wide"><div class="box-t">UI shell <span>· app/ · 85k lines</span></div><div class="box-x">Viewport, outliner, Details, node editor, shelves, Script Editor, help and render view. No state of its own.</div></div>
+      <div class="box"><div class="box-t">Assistant <span>· 4.9k lines</span></div><div class="box-x">Claude agent loop and tools, approval gate, user-supplied key.</div></div>
+    </div>
+    <div class="arrow">↓ every edit</div>
+    <div class="layer">
+      <div class="box wide hot"><div class="box-t">roxy · command registry <span>· 14k lines</span></div><div class="box-x">313 commands. Menus, shelves, scripts and the Assistant’s tools are all generated from it.</div></div>
+      <div class="box"><div class="box-t">marble <span>· 2.7k lines</span></div><div class="box-x">World Labs Marble client, jobs and spend approval.</div></div>
+    </div>
+    <div class="arrow">↓ commands change the model</div>
+    <div class="layer">
+      <div class="box wide"><div class="box-t">scene · Qt-free model <span>· 79k lines</span></div><div class="box-x">World, session, grouped undo, ChangeSet bus. Per-shape node graphs and their cook. Materials, lights, masters. io/: USD, OBJ, PLY, SPZ, .rxa.</div></div>
+      <div class="box"><div class="box-t">rendering <span>· 43k lines</span></div><div class="box-x">Taichi wavefront path tracer reads an immutable snapshot. RHI viewport renderer. Embree for picking and depth.</div></div>
+    </div>
+    <div class="arrow">↓ built on</div>
+    <div class="layer">
+      <div class="box"><div class="box-t">geometry <span>· 21k lines</span></div><div class="box-x">PolyMesh, half-edges, operator kernels.</div></div>
+      <div class="box"><div class="box-t">core <span>· 4.2k lines</span></div><div class="box-x">Vectors, matrices, transforms, BVH.</div></div>
+    </div>
+    <p class="note">In the app, a typed ChangeSet bus tells every view what changed. Line counts are Python, as of 28 October 2026.</p>
+  </div>
+
+  <div class="rules">
+    <h3>Five rules the codebase follows</h3>
+<div class="rule"><div class="rule-t">One Qt-free model.</div><div class="rule-x">The scene and its session hold all state and import no Qt. The UI adapts to it.</div></div>
+<div class="rule"><div class="rule-t">Every change is a command.</div><div class="rule-x">Each verb is registered once. Menus, shelves, the Script Editor and the Assistant all come from that list.</div></div>
+<div class="rule"><div class="rule-t">Undo is grouped commands, not snapshots.</div><div class="rule-x">An Assistant turn is one group, so one Undo removes the whole turn.</div></div>
+<div class="rule"><div class="rule-t">Formats stop at the boundary.</div><div class="rule-x">USD is converted on import, not held. It has no stable component ids, so it cannot host procedural editing.</div></div>
+<div class="rule"><div class="rule-t">The data model outlives the renderer.</div><div class="rule-x">The renderer reads an immutable snapshot, so the Taichi kernels can be replaced by C++ without changing the model.</div></div>
+  </div>
+
+  <div class="machines">
+    <h3>One codebase, two machines</h3>
+    <p class="body">The same commit on an M1 Max (Metal) and a Windows workstation (Ryzen 9 9950X3D, RTX 5090, CUDA, with a Vulkan viewport). GPU tracing scales about 5 to 12×, whole renders about 2×, because denoising and the BVH build still run on the CPU.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Measure</th><th>M1 Max · Metal</th><th>RTX 5090 · CUDA</th><th>Gain</th></tr></thead>
+        <tbody>
+<tr><td>Path tracing at 1080p</td><td class="num">140 Mrays/s</td><td class="num">681 Mrays/s</td><td class="num gain">4.9×</td></tr>
+<tr><td>Whole 1080p render, denoise included</td><td class="num">3.9 s</td><td class="num">1.9 s</td><td class="num gain">2.1×</td></tr>
+<tr><td>Caustics, tracing only</td><td class="num">0.90 s</td><td class="num">0.14 s</td><td class="num gain">6.7×</td></tr>
+<tr><td>Terrain, tracing only</td><td class="num">0.90 s</td><td class="num">0.13 s</td><td class="num gain">7.0×</td></tr>
+<tr><td>Path-traced Gaussian splats</td><td class="num">1.3 Mrays/s</td><td class="num">16.4 Mrays/s</td><td class="num gain">12×</td></tr>
+<tr><td>Kitchen_set USD import</td><td class="num">1.4 s</td><td class="num">1.1 s</td><td class="num gain">1.3×</td></tr>
+<tr><td>Viewport orbit, Kitchen_set</td><td class="num">114 fps</td><td class="num">61 fps</td><td class="num gain">At each display’s cap</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Medians of three warm runs from Roxy’s own bench, 13 October 2026.</p>
+  </div>
+</section>
+
+<section id="roadmap" class="wrap section roadmap">
+  <div class="intro">
+    <div class="eyebrow">Known gaps and what’s next</div>
+    <h2>What doesn’t work yet.</h2>
+    <p class="body">These are the open items that matter most.</p>
+  </div>
+  <div class="table-wrap">
+    <table class="gaps">
+      <thead><tr><th>Gap</th><th>Effect today</th><th>Where it’s headed</th></tr></thead>
+      <tbody>
+<tr><td class="strong">The first render compiles its kernels</td><td>A cold start compiles the path tracer’s GPU kernels before the first frame, which takes minutes on a large scene.</td><td class="muted">Kernel variants and warm-up</td></tr>
+<tr><td class="strong">Denoise and BVH build run on the CPU</td><td>On an RTX 5090 they are most of a 1080p render: 0.9 s of denoise and 0.22 s of BVH build.</td><td class="muted">GPU denoise and BVH build</td></tr>
+<tr><td class="strong">Two-million-triangle renderer cap</td><td>Bigger scenes can’t be path-traced in full, so USD subdivision is budgeted to fit.</td><td class="muted">C++ core</td></tr>
+<tr><td class="strong">Lighting is still landing</td><td>Light-path-expression AOVs compile but the renderer doesn’t read them yet, and the viewport doesn’t show light links.</td><td class="muted">Lighting track, now</td></tr>
+<tr><td class="strong">No MaterialX yet</td><td>USD materials come across as UsdPreviewSurface; MaterialX and MDL networks don’t.</td><td class="muted">MaterialX track, next</td></tr>
+<tr><td class="strong">No animation</td><td>Scenes are still frames: no timeline, keys or rigs.</td><td class="muted">After simulation, last on the roadmap</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="horizons">
+<div class="horizon"><div class="eyebrow">Now · late October</div><div class="body">Fixes from the latest code audit (save prompts, autosave and crash recovery just landed), lighting, materials and modelling gaps, help docs and Assistant skills.</div></div>
+<div class="horizon"><div class="eyebrow">Next</div><div class="body">MaterialX, a modelling dataset that teaches agents to model, GPU denoise and BVH build, and CI on every merge.</div></div>
+<div class="horizon"><div class="eyebrow">Later</div><div class="body">A C++ core for the scene and renderer, simulation, then rigging and animation.</div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="split-text">
+      <div class="eyebrow">How it was built</div>
+      <h2>Spec first, audited often.</h2>
+    </div>
+    <div class="split-media body">
+      <p>Roxy has been in development since 30 April 2026: 4,624 commits and 637 merged pull requests, with 17,299 automated tests. Each feature gets a written design spec before any code, work lands as reviewed pull requests, and the codebase is audited periodically.</p>
+      <p>I own the architecture and the direction. I wrote the original path tracer and the scene graph myself, and I made the organizational decisions that shape the codebase. Claude Code has implemented my designs since then, working through them with me in discussion. The code audits are also Claude Code’s work.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="wrap split about">
+  <div class="split-text">
+    <div class="eyebrow">About</div>
+    <h2>I’m Seth Schwartz.</h2>
+    <p class="body">A senior pipeline engineer with 14+ years across feature film, interactive and automotive visualization, including 10 feature credits at Reel FX. I build the tools that connect creative work to automation. Roxy is where I explore what that looks like when an AI can operate the tool too.</p>
+    <p class="body">Open to pipeline and tools roles, simulation and synthetic data, and AI-adjacent engineering. Dallas, Texas: onsite or hybrid in DFW, or remote within the US.</p>
+  </div>
+  <div class="contact">
+    <a class="card" href="mailto:sethaschwartz@gmail.com"><span class="card-k">Email</span><span class="card-v">sethaschwartz@gmail.com</span></a>
+    <a class="card" href="https://www.linkedin.com/in/seth-schwartz-a626981b"><span class="card-k">LinkedIn</span><span class="card-v">seth-schwartz-a626981b</span></a>
+    <a class="card hot" href="/resume.pdf"><span class="card-k">Résumé</span><span class="card-v">Download the PDF</span></a>
+    <p class="note">The source is private.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap site-foot">
+  <div class="foot-row">
+    <span>© 2026 Seth Schwartz</span>
+    <span>Every image and clip on this page was rendered or recorded in Roxy.</span>
+  </div>
+  <div class="credits">
+    <span class="card-k">Credits</span><br>
+    Kitchen_set is Pixar’s USD Kitchen Asset, © Pixar, used under the USD Kitchen Asset license. Pixar does not endorse this site.<br>
+    The Porsche splat is “LEGO® 42056 Porsche 911 GT3 RS (LDraw)” by <a href="https://superspl.at/user?id=renderbricks">Renderbricks</a>, via <a href="https://superspl.at/scene/98c4ad8d">SuperSplat</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. It was imported as a Gaussian splat, then lit and rendered in Roxy. LEGO® is a trademark of the LEGO Group, which does not sponsor or endorse this site.<br>
+    The tower drawing in the Assistant clip is a design for Neuschwanstein’s square tower (plate 6): a 1937 photograph by Bildarchiv Foto Marburg of a drawing in the König Ludwig II archive, <a href="https://www.bildindex.de/document/obj20697405?medium=mi02493b11">Public Domain Mark</a>.
+  </div>
+</footer>
+
+<script src="/site.js" defer></script>
 </body>
 </html>
