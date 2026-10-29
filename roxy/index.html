@@ -45,10 +45,9 @@
   <div class="hero-text">
     <div class="eyebrow">Personal R&amp;D · since 30 April 2026</div>
     <h1>A procedural DCC, built from scratch, that an AI can drive.</h1>
-    <p class="lede">Node-based modelling, production OpenUSD, Gaussian splats and a GPU path tracer, in one scene model with one command layer. Menus, scripts and a built-in Claude assistant all go through the same 313 commands.</p>
+    <p class="lede">Roxy is a 3D modelling tool with node-based workflows, production USD support, Gaussian splats, and a GPU path tracer. Its built-in Claude assistant uses the same commands as the menus and scripts.</p>
     <div class="buttons">
       <a class="btn primary" href="#watch">Watch it build</a>
-      <a class="btn" href="/resume.pdf">Résumé (PDF)</a>
       <a class="btn" href="#architecture">How it's built</a>
     </div>
   </div>
@@ -58,9 +57,7 @@
 <section class="wrap proof" aria-label="By the numbers">
   <div class="stats">
 <div class="stat"><div class="stat-v">313</div><div class="stat-l">commands in one registry</div></div>
-<div class="stat"><div class="stat-v">17,299</div><div class="stat-l">automated tests</div></div>
-<div class="stat"><div class="stat-v">4,624</div><div class="stat-l">commits since 30 April 2026</div></div>
-<div class="stat"><div class="stat-v">254k</div><div class="stat-l">lines of Python, 8 packages</div></div>
+<div class="stat"><div class="stat-v">17,299</div><div class="stat-l">automated tests defined</div></div>
 <div class="stat"><div class="stat-v">1.4 s</div><div class="stat-l">to import Pixar’s Kitchen_set</div></div>
   </div>
   <p class="note">Timings are medians of three warm runs on a MacBook Pro (M1 Max, 64 GB), 13 October 2026. Counts are from the main branch on 28 October 2026.</p>
@@ -69,11 +66,10 @@
 <section id="watch" class="wrap section">
   <div class="intro" id="work">
     <div class="eyebrow">Watch it work</div>
-    <h2>Six short clips. No audio.</h2>
+    <h2>Five more clips. No audio.</h2>
     <p class="body">Every clip is a screen recording of the app. The kitchen and escalator clips run in real time; the Assistant turns and the render are time-lapsed so they fit.</p>
   </div>
   <div class="grid clips">
-<figure style="flex:1 1 340px"><video class="media" src="/img/clip-cornell-assistant.mp4" poster="/img/clip-cornell-assistant.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy Assistant building a Cornell box, with the command log on the right."></video><figcaption class="clip"><strong>The Assistant builds a Cornell box.</strong> One prompt to a saved render in about five minutes. Time-lapse.</figcaption></figure>
 <figure style="flex:1 1 340px"><video class="media" src="/img/clip-kitchen-import.mp4" poster="/img/clip-kitchen-import.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of Pixar’s Kitchen_set opening in Roxy."></video><figcaption class="clip"><strong>Moving into Kitchen_set.</strong> Pixar’s production scene opens in 1.4 s and orbits at 114 fps. Real time.</figcaption></figure>
 <figure style="flex:1 1 340px"><video class="media" src="/img/clip-escalator-sliders.mp4" poster="/img/clip-escalator-sliders.jpg" width="1600" height="1000" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the escalator node graph and viewport side by side while sliders change the step count."></video><figcaption class="clip"><strong>One slider, a whole staircase.</strong> Change the step count and the sweep radius; every downstream node recooks live. Real time.</figcaption></figure>
 <figure style="flex:1 1 340px"><video class="media" src="/img/clip-render-converge.mp4" poster="/img/clip-render-converge.jpg" width="1600" height="900" muted loop playsinline controls preload="none" data-auto aria-label="Screen recording of the Roxy render view converging from noise to a denoised frame."></video><figcaption class="clip"><strong>A frame converging.</strong> The path tracer refining from noise to a denoised image. Time-lapse.</figcaption></figure>
